@@ -41,7 +41,6 @@ function saveCanvas(){
       console.error("Error rip", err);
       return;
     }
-    console.log("we have done it.");
   })
 }
 const PORT = process.env.PORT || 80;

@@ -1,0 +1,99 @@
+canvas {
+  border: 2px solid black;
+  display: block;
+}
+
+.main {
+    display : flex;
+}
+
+.leftside {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 7px;
+    margin: 5px;
+    margin-left: 0px;
+    margin-top: 2px;
+}
+
+.colorbutton {
+  width: 31px;
+  height: 31px;
+  border: 2px solid black;
+  border-radius: 25%;
+}
+
+#slider {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: grab;
+  width: 15px;
+  height: 200px;
+  background-color: grey;
+  align-self: center;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+}
+
+#slider::-moz-range-thumb {
+  -moz-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+#slider:active {
+  cursor: grabbing;
+}
+
+#red {
+  background-color: red;
+}
+
+#orange {
+  background-color: orange;
+}
+
+#yellow {
+  background-color: yellow;
+}
+
+#green {
+  background-color: green;
+}
+
+#lime {
+  background-color: lime;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#cyan {
+  background-color: cyan;
+}
+
+#purple {
+  background-color: purple;
+}
+
+#pink {
+  background-color: pink;
+}
+
+#white {
+  background-color: white;
+}
+
+#black {
+  background-color: black;
+}

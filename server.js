@@ -14,6 +14,7 @@ io.on('connection', (socket) => {
     console.log('A user connected');
   
     socket.on('draw', (data) => {
+      console.log(data);
       io.emit('draw', data);
     });
 
@@ -35,7 +36,7 @@ function saveCanvas(){
   if(dataURL == null) {return};
   const data = dataURL.split(",")[1];
   const buffer = Buffer.from(data, "base64");
-  const filePath = "/home/tomas/Desktop/website/canvas.png"
+  const filePath = "./canvas.png"
   fs.writeFile(filePath, buffer, (err) =>{
     if(err){
       console.error("Error rip", err);
@@ -49,4 +50,4 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-setInterval(saveCanvas, 1000);
+//setInterval(saveCanvas, 1000);

@@ -5,70 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shared Canvas</title>
-  <style>
-    #canvas {
-      border: 1px solid black;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="canvas" width="1280" height="720"></canvas>
+  <div class="main">
+    <div class="leftside">
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="red"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="orange"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="yellow"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="green"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="lime"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="blue"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="cyan"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="purple"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="pink"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="white"></button>
+      <button type="button" onclick="setColor(this.id)" class="colorbutton" id="black"></button>
+      <input type="range" min="1" max="40" value="4" id="slider" orient="vertical" onchange="setWidth(this.value)">
+    </div>
+    <canvas id="canvas" width="1280" height="720"></canvas>
+</div>
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-
-    socket.emit("getCanvas");
-    socket.on("response", (dataURL) =>{
-      if(dataURL != null){
-      const img = new Image();
-      img.onload = function() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(img, 0, 0);
-      };
-      img.src = dataURL;
-      }
-    })
-
-    let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
-
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', () => isDrawing = false);
-    canvas.addEventListener('mouseout', () => isDrawing = false);
-
-    function startDrawing(e) {
-        isDrawing = true;
-        [lastX, lastY] = [e.offsetX, e.offsetY];
-    }
-
-    function draw(e) {
-        if (!isDrawing) return;
-        const [x, y] = [e.offsetX, e.offsetY];
-
-        socket.emit("draw", {lastX, lastY, x, y});
-
-        lastX = x;
-        lastY = y;
-    }
-
-    socket.on('draw', ({ lastX, lastY, x, y }) => {
-      context.beginPath();
-      context.moveTo(lastX, lastY);
-      context.lineTo(x, y);
-      context.strokeStyle = 'black';
-      context.lineWidth = 2;
-      context.stroke();
-    });
-
-    function saveCanvas(){
-        const canvasData = canvas.toDataURL('image/png');
-        socket.emit('updateCanvas', canvasData);
-    }
-    setInterval(saveCanvas, 500);
-  </script>
+  <script src="client.js"></script>
 </body>
 </html>

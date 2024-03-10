@@ -10,11 +10,22 @@ var dataURL = null;
 
 app.use(express.static('public'));
 
+app.get('/download', (req, res) => {
+  fs.readFile('./canvas.png', (err, data) => {
+      if (err) {
+          console.error('Error reading wallpaper file:', err);
+          res.status(500).send('Internal Server Error');
+          return;
+      }
+      res.writeHead(200, {'Content-Type': 'image/png'});
+      res.end(data);
+  });
+});
+
 io.on('connection', (socket) => {
     console.log('A user connected');
   
     socket.on('draw', (data) => {
-      console.log(data);
       io.emit('draw', data);
     });
 
@@ -50,4 +61,4 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-//setInterval(saveCanvas, 1000);
+setInterval(saveCanvas, 1000);

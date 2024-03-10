@@ -15,7 +15,7 @@ socket.on("response", (dataURL) =>{
 })
 
 let color = "black"
-let strokeWidth = 4;
+let strokeWidth = document.getElementById("slider").value;
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
@@ -47,6 +47,11 @@ socket.on('draw', ({ lastX, lastY, x, y, color, strokeWidth }) => {
   context.strokeStyle = color;
   context.lineWidth = strokeWidth;
   context.stroke();
+
+  context.beginPath();
+  context.arc(x, y, strokeWidth/2, 0, 2*Math.PI);
+  context.fillStyle = color;
+  context.fill();
 });
 
 function saveCanvas(){
